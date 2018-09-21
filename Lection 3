@@ -86,3 +86,35 @@ Buffered: InpStream, OutputStream, Reader, Writer
 try (BufferedReader in = new BR(new ISR(new FIS("a.txt"), "uft-8"))
 in.readerLine()
 ...
+
+NIO
+
+В java.io класс File <-> путь на диске
+В java.nio класс Path - путь
+
+Можно преврать друг в друга
+new File("a.txt").toPath()            Paths - вспом. класс, чтобы получить Path
+сразу Path:        Paths.get("...")
+                   Paths.get("c:/windows")
+                   Paths.get("c:/windows", "a.txt")
+класс Files - вспом. класс для работы с файлами
+Files.move(source, dest, ...) (удобнее, чем File.move())
+           :Path  :Path  доп.
+                        copy options
+           StandartCopyOption.REPLACE_EXISTING
+
+byte[] Files.readAllBytes(Path)
+String[] Files.readAllLines(Path)
+Files.write(Path, byte[], ...)
+                  что     опции
+Files.write(Path, _________, Charset)
+                  коллекция  опции
+                    строк
+хотим прочитать файл как 1 строку
+                         1 String
+byte[] allBytes = Files.readAllBytes(...)
+      new String(byte[], кодирование)
+      ------------------------------>
+byte[]                               String
+      <------------------------------
+         String.getBytes(кодировка)
