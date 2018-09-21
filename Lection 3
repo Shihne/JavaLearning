@@ -1,0 +1,88 @@
+В Java две библиотеки для IO
+пакет java.io - старый
+пакет java.nio - новый, стараться использовать его
+Старый: входной поток (байт)              -байт- символов
+        InputStream                   Reader
+        OutputStream                  Writer
+           выходной поток (байт)          -байт- символы
+
+байт 0...255 (-128...127)
+символ (в Java) - эт-т таблицы Unicode
+кодировка таблица соотвествия символа и числового представления кода
+ASCII
+ср 866 (pos)
+windows-1251 (win)
+koi 8-r
+utf-8
+
+ASCII (7 bit - байт без 1 бита)
+0 -
+...
+10 - перевод строки
+13 - возврат
+32 - пробел
+48 - "0"
+57 - "9"
+65 - "A"
+116 - "z"
+
+cp 866 - ASCII и вторая половина 128-255 (русские буквы и псевдографика)        |
+win 1251 ----------------//------------- (русские и кирилл. алфавита буквы)     +--- 1 байт на символ
+koi8-r                                                                          |
+utf-8       ASCII - совместимое представление UNICODE
+            0...127 - ASCII символ
+            128...255 еще несколько байт
+            лат. - 1 байт
+            кир. - 2 байта
+
+В Java кодировки по умолчанию
+utf-8 или win-1251
+Input Stream <-> Reader        Кодирование!!
+Output Stream <-> Writer       Указывать явно
+Стараться всё хранить в utf-8 и преобразовывать другие код. в utf-8
+       кодировка
+байты <---------> символы
+
+Что умеет InputStream
+- int read() - читает 1 байт (-1 если конец)
+0.255
+- int read(byte[] buf) - читает байт в буффер
+...
+-close() - не вызывать самим. Использовать try(...){...}
+
+-OutputStream
+write(byte b)
+write(byte[] buf)
+close()
+flush()
+заставит записать данные на устройство
+
+прог.
+  |
+  V
+ OS
+  |
+  V
+ диск
+
+Reader, Writer аналогично
+
+FileInputStream <- IS, связанный с файлом
+FileOutputStream <- OS -----//------
+FileReader <- R -----//----------         не рекоменд.
+FileWriter <- W ----------//--------     нельзя указать кодировку
+OutputStreamWriter              OS во Writer
+InputStreamReader - превращают  IS в Reader
+
+Прочитать текст из файла
+
+try (Reader in = new InputStreamReader(new FileInputStream("a.txt"), "uft-8"))
+Buffered: InpStream, OutputStream, Reader, Writer
+--> BIS --> IS --> файл
+обёртка для производительности
++ доп.возможности
+в BufferedWriter есть newLine()
+                      -перевод строки
+try (BufferedReader in = new BR(new ISR(new FIS("a.txt"), "uft-8"))
+in.readerLine()
+...

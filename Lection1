@@ -1,0 +1,101 @@
+Open JDK
+Обработка исключений
+Пример
+    f = open("a.txt")
+    if (last.error() != 0) {                o - всё хорошо
+        print(last.error(last.error()))
+        return
+    }
+    txt = read(f)
+    Г if...
+    |...
+    |...
+    L close(f)
+
+    f = open("f.txt")
+    txt = read(f);        может возникнуть исключение exception
+    close(f)              программа останавливается
+
+    Метод в Java
+    public void f(...) throws Exception {
+    ...                                     -обработка
+    ...Что-то пошло не так...                   или
+    ...                                     -явно отказывается обработать
+    }
+
+    2. Явный отказ
+    Тот, кто вызывает f теперь опять решает
+    Если в main(String[] args) throws Exception
+    сама Java обработает: e.printStackTrace()
+
+    Как обработать:
+    void f() {
+        try {
+        ...
+        ...Что-то пошло не так...
+        ...
+        } catch(Exception e) {                             e - информация об ошибке
+            Выплоняется, если внутри try был Exception
+        }
+    }
+
+                                              Throwable
+                                            /           \
+                                           /             \
+                                          /               \
+                                        Error          Exception (обрабатывается обязательно)
+                                                            |         \|/кроме\|/
+                                              IO Exception__|_____Runtime Exception
+
+
+    Полная форма
+    try (...заводим переменные, они точно будут close()...) {
+
+    } catch (fileNotFound Exception e) {
+
+    } catch (IO Exception e) {
+
+    } catch (Exception e) {
+
+    } finally {
+        Выполняется всегда, независимо от исключений, после try или catch
+    }
+
+    Оператор throw e;
+    throw new Exception("ошибка");
+    throw new Exception;
+    public class MyException extends Exception{
+
+    }
+    throw new MyException();
+    catch (MyException e) {
+
+    }
+
+    Задача 1
+    void f(int x) throws Exception
+                        MyException {
+        если x - чет, то исключение
+               - нечет, то ничего
+                        }
+
+    в main:
+        for(i от 1 до 10)
+            f(i)
+    Вывести
+        1 - нет исключения
+        2 - есть ----//---- е
+        3 - нет ----//-----
+
+    Задача 2
+    метод Integer.parseInt("242") если это не чисто, то генерируется исключение
+     -строка в число
+     нужна функция int readInt(String message)
+
+     использование
+        int x = readInt("введите x");
+        int y = --------//--------
+        sout("x + y = " + (x + y))
+
+     Чтобы читать с клав: s = new Scanner(System.in)
+        s.nextLine()
