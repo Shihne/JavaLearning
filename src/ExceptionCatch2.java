@@ -24,11 +24,12 @@ public class ExceptionCatch2 {
     public static int readInt(String message) {
         System.out.println(message);
         int x;
+        Scanner s = new Scanner(System.in);
+        String str = s.nextLine();
         try {
-            Scanner s = new Scanner(System.in);
-            x = Integer.parseInt(s.nextLine());
+            x = Integer.parseInt(str);
         } catch (Exception e) {
-            x = readInt("Ошибка. Введите ещё раз");
+            x = readInt(str + " - это не число, попробуйте еще раз");
         }
         return x;
     }

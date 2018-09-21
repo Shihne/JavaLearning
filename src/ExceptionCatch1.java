@@ -3,9 +3,8 @@ public class ExceptionCatch1 {
         for (int i = 1; i <= 10; i++) {
             try {
                 f(i);
-                System.out.println("Не исключение");
             } catch (Exception e) {
-                System.out.println("Исключение");
+                System.out.println(i + " - исключение");
             }
         }
     }
