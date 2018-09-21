@@ -16,8 +16,8 @@ import java.util.Scanner;
 
 public class ExceptionCatch2 {
     public static void main(String[] args) {
-        int x = readInt("введите x");
-        int y = readInt("введите y");
+        int x = readInt("Введите x");
+        int y = readInt("Введите y");
         System.out.println("x + y = " + (x + y));
     }
 
@@ -26,9 +26,9 @@ public class ExceptionCatch2 {
         int x;
         try {
             Scanner s = new Scanner(System.in);
-            x = s.nextInt();
+            x = Integer.parseInt(s.nextLine());
         } catch (Exception e) {
-            System.out.println("введите заново");
+            x = readInt("Ошибка. Введите ещё раз");
         }
         return x;
     }
