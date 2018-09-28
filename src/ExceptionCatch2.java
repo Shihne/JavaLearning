@@ -15,22 +15,29 @@
 import java.util.Scanner;
 
 public class ExceptionCatch2 {
+
+    private static Scanner s = new Scanner(System.in);
+
     public static void main(String[] args) {
         int x = readInt("Введите x");
         int y = readInt("Введите y");
         System.out.println("x + y = " + (x + y));
     }
 
-    public static int readInt(String message) {
+    private static int readInt(String message) {
         System.out.println(message);
-        int x;
-        Scanner s = new Scanner(System.in);
-        String str = s.nextLine();
-        try {
-            x = Integer.parseInt(str);
-        } catch (Exception e) {
-            x = readInt(str + " - это не число, попробуйте еще раз");
+
+
+        while (true) {
+            String str = s.nextLine();
+            try {
+                return Integer.parseInt(str);
+            } catch (Exception e) {
+                System.out.println(str + " - это не число, попробуйте еще раз");
+            }
         }
-        return x;
+
+
+
     }
 }
