@@ -45,6 +45,7 @@ public class AppChat extends Application {
         tfb.setAlignment(Pos.BOTTOM_LEFT);
         HBox.setHgrow(rootLeft, Priority.ALWAYS);
         VBox.setVgrow(lv, Priority.ALWAYS);
+        HBox.setHgrow(tf, Priority.ALWAYS);
         //rootRight.setAlignment(Pos.BOTTOM_RIGHT);
 
         return root;
