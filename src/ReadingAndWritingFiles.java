@@ -4,6 +4,9 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadingAndWritingFiles {
     public static void main(String[] args) {
@@ -18,8 +21,18 @@ public class ReadingAndWritingFiles {
         writeText(new File(textWin), "windows-1251", text);
         writeText(new File(textKoi), "koi8-r", text);
 
-        byte[] bytesUTF = readBytes(Paths.get(textWin));
-        for (byte b : bytesUTF)
+        byte[] bytesUTF = readBytes(Paths.get(textUtf));
+        byte[] bytesWin = readBytes(Paths.get(textWin));
+
+        /*try {
+            Files.write(Paths.get("Task4/text_utf8.bin"), bytesUTF);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        writeBytes(Paths.get("Task4/text_utf8.bin"), bytesUTF);
+        writeBytes(Paths.get("Task4/text_win1251.bin"), bytesWin);
+        for (byte b : bytesWin)
             System.out.println((b & 0xFF) + " " + b + " " + Integer.toString(b & 0xFF, 16));
     }
 
@@ -42,4 +55,16 @@ public class ReadingAndWritingFiles {
         }
         return allBytes;
     }
+
+    private static void writeBytes(Path path, byte[] bytes) {
+        List<String> list = new ArrayList<>();
+        for (byte b : bytes)
+            list.add((b & 0xFF) + " " + b + " " + Integer.toString(b & 0xFF, 16));
+        try {
+            Files.write(path, list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
