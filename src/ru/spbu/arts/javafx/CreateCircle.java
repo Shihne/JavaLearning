@@ -46,9 +46,6 @@ public class CreateCircle extends Application {
         Label circle_color = new Label("Выберите цвет круга");
         Label bgColor = new Label("Выберите цвет фона");
         panel.getChildren().addAll(radius, slider, circle_color, cp1, bgColor, cp2);
-        slider.setMin(0);
-        slider.setMax(100);
-        slider.setValue(50);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
         cp2.setValue(Color.CORAL);
@@ -94,6 +91,12 @@ public class CreateCircle extends Application {
                 )
         );
         circle.centerXProperty().bind(
+                Bindings.createDoubleBinding(
+                        () -> pane.getWidth() / 2,
+                        pane.widthProperty()
+                )
+        );
+        slider.maxProperty().bind(
                 Bindings.createDoubleBinding(
                         () -> pane.getWidth() / 2,
                         pane.widthProperty()
