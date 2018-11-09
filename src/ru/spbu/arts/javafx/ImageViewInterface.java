@@ -16,14 +16,13 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
 public class ImageViewInterface extends Application {
 
-    private ListView<Image> listView;
+    private ListView<File> listView;
 
     @Override
     public void start(Stage primaryStage) {
@@ -52,17 +51,32 @@ public class ImageViewInterface extends Application {
 
         HBox.setHgrow(textField, Priority.ALWAYS);
 
-
-
+        /*listView.setCellFactory(
+                (lv) -> new ListCell<File>() {
+                    @Override
+                    protected void updateItem(File item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty)
+                            setText("Пусто");
+                        else {
+//                            URL picURL = ImageViewInterface.class.getResource(item.toString());
+//                            System.out.println("url: " + picURL);
+                            Image i = new Image(item.getAbsolutePath());
+                            setGraphic(new ImageView(i));
+                        }
+                    }
+                }
+        );*/
         return splitPane;
     }
 
     private void initData() {
-
-        List<Image> pics = new ArrayList<>();
-
-        ObservableList<Image> images = FXCollections.observableList(pics);
-
+        File folder = new File("src/ru/spbu/arts/javafx/images/");
+        File[] files = folder.listFiles();
+        List<File> pics = Arrays.asList(files != null ? files : new File[0]);
+        System.out.println(pics);
+        ObservableList<File> images = FXCollections.observableList(pics);
+        listView.setItems(images);
 
     }
 }
