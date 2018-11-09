@@ -38,8 +38,6 @@ public class CreateCircle extends Application {
     private Parent initInterface() {
         HBox root = new HBox();
 
-
-
         root.getChildren().addAll(panel, pane);
 
         Label radius = new Label("Выберите радиус");
@@ -85,11 +83,9 @@ public class CreateCircle extends Application {
         circle.setCenterY(panel.getHeight() / 2);*/
 
         circle.centerYProperty().bind(
-                Bindings.createDoubleBinding(
-                        () -> panel.getHeight() / 2,
-                        panel.heightProperty()
-                )
+                Bindings.divide(pane.heightProperty(), 2)
         );
+
         circle.centerXProperty().bind(
                 Bindings.createDoubleBinding(
                         () -> pane.getWidth() / 2,
@@ -98,8 +94,9 @@ public class CreateCircle extends Application {
         );
         slider.maxProperty().bind(
                 Bindings.createDoubleBinding(
-                        () -> pane.getWidth() / 2,
-                        pane.widthProperty()
+                        () -> Math.min(pane.getHeight(), pane.getWidth()) / 2,
+                        pane.widthProperty(),
+                        pane.heightProperty()
                 )
         );
     }
