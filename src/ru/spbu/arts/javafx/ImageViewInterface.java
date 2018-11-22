@@ -1,6 +1,7 @@
 package ru.spbu.arts.javafx;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,12 +23,14 @@ import java.util.List;
 public class ImageViewInterface extends Application {
 
     private ListView<File> listView;
+    private ImageView imageView;
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Просмотр изображений");
         Parent root = initInterface();
         primaryStage.setScene(new Scene(root));
+        initInteraction();
         primaryStage.show();
 
         initData();
@@ -42,7 +44,7 @@ public class ImageViewInterface extends Application {
         Button button = new Button("Выбрать");
         TextField textField = new TextField();
         Pane pane = new Pane();
-        ImageView imageView = new ImageView();
+        imageView = new ImageView();
 
         pane.getChildren().add(imageView);
         btn_and_tf.getChildren().addAll(textField, button);
@@ -51,8 +53,8 @@ public class ImageViewInterface extends Application {
 
         HBox.setHgrow(textField, Priority.ALWAYS);
 
-        /*listView.setCellFactory(
-                (lv) -> new ListCell<File>() {
+        listView.setCellFactory(
+                (lv) -> new ListCell<>() {
                     @Override
                     protected void updateItem(File item, boolean empty) {
                         super.updateItem(item, empty);
@@ -61,12 +63,17 @@ public class ImageViewInterface extends Application {
                         else {
 //                            URL picURL = ImageViewInterface.class.getResource(item.toString());
 //                            System.out.println("url: " + picURL);
-                            Image i = new Image(item.getAbsolutePath());
-                            setGraphic(new ImageView(i));
+                            ImageView iv = new ImageView(new Image(item.toURI().toString()));
+                            iv.setFitHeight(100);
+                            iv.setFitWidth(100);
+                            iv.setPreserveRatio(true);
+                            setGraphic(iv);
+                            String str = item.toString();
+                            setText(str.substring(str.lastIndexOf("\\") + 1, str.lastIndexOf(".")));
                         }
                     }
                 }
-        );*/
+        );
         return splitPane;
     }
 
@@ -77,6 +84,23 @@ public class ImageViewInterface extends Application {
         System.out.println(pics);
         ObservableList<File> images = FXCollections.observableList(pics);
         listView.setItems(images);
+    }
+
+    private void initInteraction() {
+
+        imageView.imageProperty().bind(
+                Bindings.createObjectBinding(
+                        () -> {
+                            File file = listView.getSelectionModel().getSelectedItem();
+                            if (file != null)
+                                return new Image(file.toURI().toString());
+                            else
+                                return null;
+                            },
+                        listView.getSelectionModel().selectedItemProperty()
+                )
+        );
+
 
     }
 }
