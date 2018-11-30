@@ -17,13 +17,17 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ImageViewInterface extends Application {
 
     private ListView<File> listView;
     private ImageView imageView;
+    private VBox rightPane;
+    private Map<String, Double> map = new HashMap<>();
 
     @Override
     public void start(Stage primaryStage) {
@@ -39,12 +43,13 @@ public class ImageViewInterface extends Application {
     private Parent initInterface() {
         SplitPane splitPane = new SplitPane();
         listView = new ListView<>();
-        VBox rightPane = new VBox();
+        rightPane = new VBox();
         HBox btn_and_tf = new HBox();
         Button button = new Button("Выбрать");
         TextField textField = new TextField();
         Pane pane = new Pane();
         imageView = new ImageView();
+        imageView.setPreserveRatio(true);
 
         pane.getChildren().add(imageView);
         btn_and_tf.getChildren().addAll(textField, button);
@@ -54,12 +59,12 @@ public class ImageViewInterface extends Application {
         HBox.setHgrow(textField, Priority.ALWAYS);
 
         listView.setCellFactory(
-                (lv) -> new ListCell<>() {
+                (lv) -> new ListCell<File>() {
                     @Override
                     protected void updateItem(File item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty)
-                            setText("Пусто");
+                            setText("");
                         else {
 //                            URL picURL = ImageViewInterface.class.getResource(item.toString());
 //                            System.out.println("url: " + picURL);
@@ -92,9 +97,9 @@ public class ImageViewInterface extends Application {
                 Bindings.createObjectBinding(
                         () -> {
                             File file = listView.getSelectionModel().getSelectedItem();
-                            if (file != null)
+                            if (file != null) {
                                 return new Image(file.toURI().toString());
-                            else
+                            } else
                                 return null;
                             },
                         listView.getSelectionModel().selectedItemProperty()
@@ -102,5 +107,20 @@ public class ImageViewInterface extends Application {
         );
 
 
+        imageView.fitWidthProperty().bind(
+                rightPane.widthProperty()
+                /*Bindings.createDoubleBinding(
+                        () -> {
+                            if (rightPane.getWidth() < map.get(imageView.toString()))
+                                return rightPane.getWidth();
+                            else
+                                return imageView.getFitWidth();
+                        },
+                        rightPane.widthProperty()
+                )*/
+        );
+        imageView.fitHeightProperty().bind(
+                rightPane.heightProperty()
+        );
     }
 }
