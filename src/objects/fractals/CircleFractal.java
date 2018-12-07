@@ -9,4 +9,6 @@ public class CircleFractal implements Fractal{
         else
             return 0;
     }
+
+
 }
