@@ -12,10 +12,11 @@ public class MandelbrotFractal implements Fractal {
         for (int n = 0; n <= N; n++) {
             x1 = x * x - y * y + p;
             y1 = 2 * x * y + q;
-            if (x1 * x1 + y1 * y1 > 4)
-                return n / N;
             x = x1;
             y = y1;
+            if (x * x + y * y > 4)
+                return (double) n / N;
+
         }
         return 1;
     }

@@ -23,20 +23,16 @@ public class ReadingAndWritingFiles {
 
         byte[] bytesUTF = readBytes(Paths.get(textUtf));
         byte[] bytesWin = readBytes(Paths.get(textWin));
+        byte[] bytesKoi = readBytes(Paths.get(textKoi));
 
-        /*try {
-            Files.write(Paths.get("Task4/text_utf8.bin"), bytesUTF);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
         writeBytes(Paths.get("Task4/text_utf8.bin"), bytesUTF);
         writeBytes(Paths.get("Task4/text_win1251.bin"), bytesWin);
-        for (byte b : bytesWin)
-            System.out.println((b & 0xFF) + " " + b + " " + Integer.toString(b & 0xFF, 16));
+        writeBytes(Paths.get("Task4/text_koi8r.bin"), bytesKoi);
+        writeKoiBytes(Paths.get("Task4/text_koi7r.txt"), bytesKoi);
+        //for (byte b : bytesUTF)
+        //    System.out.println((b & 0xFF) + " " + b + " " + Integer.toString(b & 0xFF, 16));
     }
 
-    
 
     private static void writeText(File target, String coding, String text) {
         try (PrintStream out = new PrintStream(target, coding)) {
@@ -56,6 +52,7 @@ public class ReadingAndWritingFiles {
         return allBytes;
     }
 
+
     private static void writeBytes(Path path, byte[] bytes) {
         List<String> list = new ArrayList<>();
         for (byte b : bytes)
@@ -67,4 +64,18 @@ public class ReadingAndWritingFiles {
         }
     }
 
+    private static void writeKoiBytes(Path path, byte[] bytes) {
+        List<String> list = new ArrayList<>();
+        for (byte b : bytes) {
+            if (b < 0) {
+                b = (byte) (b + 128);
+            }
+            list.add((b & 0xFF) + " " + b + " " + Integer.toString(b & 0xFF, 16));
+            try {
+                Files.write(path, list);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

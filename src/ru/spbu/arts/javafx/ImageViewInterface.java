@@ -13,13 +13,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class ImageViewInterface extends Application {
@@ -27,17 +26,30 @@ public class ImageViewInterface extends Application {
     private ListView<File> listView;
     private ImageView imageView;
     private VBox rightPane;
-    private Map<String, Double> map = new HashMap<>();
+    private DirectoryChooser directoryChooser = new DirectoryChooser();
+
+    private Button button;
+    private TextField textField;
+    private Label label;
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Просмотр изображений");
+        configuringDirectoryChooser(directoryChooser);
         Parent root = initInterface();
         primaryStage.setScene(new Scene(root));
         initInteraction();
+
+        button.setOnAction(event -> {
+            File dir = directoryChooser.showDialog(primaryStage);
+            if (dir != null)
+                textField.setText(dir.getAbsolutePath());
+            else
+                textField.setText(null);
+        });
+
         primaryStage.show();
 
-        initData();
     }
 
     private Parent initInterface() {
@@ -45,13 +57,14 @@ public class ImageViewInterface extends Application {
         listView = new ListView<>();
         rightPane = new VBox();
         HBox btn_and_tf = new HBox();
-        Button button = new Button("Выбрать");
-        TextField textField = new TextField();
+        button = new Button("Выбрать папку");
+        textField = new TextField(directoryChooser.getInitialDirectory().getAbsolutePath());
         Pane pane = new Pane();
+        label = new Label("Выберите изображение");
         imageView = new ImageView();
         imageView.setPreserveRatio(true);
 
-        pane.getChildren().add(imageView);
+        pane.getChildren().addAll(label, imageView);
         btn_and_tf.getChildren().addAll(textField, button);
         rightPane.getChildren().addAll(btn_and_tf, pane);
         splitPane.getItems().addAll(listView, rightPane);
@@ -59,7 +72,7 @@ public class ImageViewInterface extends Application {
         HBox.setHgrow(textField, Priority.ALWAYS);
 
         listView.setCellFactory(
-                (lv) -> new ListCell<File>() {
+                (lv) -> new ListCell<>() {
                     @Override
                     protected void updateItem(File item, boolean empty) {
                         super.updateItem(item, empty);
@@ -79,28 +92,53 @@ public class ImageViewInterface extends Application {
                     }
                 }
         );
+        listView.setPlaceholder(new Label("Нет изображений"));
         return splitPane;
     }
 
-    private void initData() {
-        File folder = new File("src/ru/spbu/arts/javafx/images/");
+    private ObservableList<File> initData(File folder) {
         File[] files = folder.listFiles();
-        List<File> pics = Arrays.asList(files != null ? files : new File[0]);
-        System.out.println(pics);
-        ObservableList<File> images = FXCollections.observableList(pics);
-        listView.setItems(images);
+        //List<File> pics = Arrays.asList(files != null ? files : new File[0]);
+        List<File> pics = new ArrayList<>();
+        if (files != null) {
+            for (File file : files)
+                if (file.isFile()) {
+                    Image image = new Image(file.toURI().toString());
+                    //System.out.println(image.getUrl());
+                    if (!image.isError())
+                        pics.add(file);
+                    else {
+                        String err = file.toURI().toString();
+                        System.out.println(err.substring(err.lastIndexOf("/") + 1) + " - не удалось загрузить");
+                    }
+                }
+        }
+        //System.out.println(pics);
+        return FXCollections.observableList(pics);
     }
 
     private void initInteraction() {
+        listView.itemsProperty().bind(
+                Bindings.createObjectBinding(
+                        () -> {
+                            File folder = new File(textField.getText());
+                            return initData(folder);
+                        },
+                        textField.textProperty()
+                )
+        );
 
         imageView.imageProperty().bind(
                 Bindings.createObjectBinding(
                         () -> {
                             File file = listView.getSelectionModel().getSelectedItem();
                             if (file != null) {
+                                label.setText("");
                                 return new Image(file.toURI().toString());
-                            } else
+                            } else {
+                                label.setText("Выберите изображение");
                                 return null;
+                            }
                             },
                         listView.getSelectionModel().selectedItemProperty()
                 )
@@ -122,5 +160,10 @@ public class ImageViewInterface extends Application {
         imageView.fitHeightProperty().bind(
                 rightPane.heightProperty()
         );
+    }
+
+    private void configuringDirectoryChooser(DirectoryChooser directoryChooser) {
+        directoryChooser.setTitle("Выбор папки");
+        directoryChooser.setInitialDirectory(new File("src/ru/spbu/arts/javafx/images/"));
     }
 }

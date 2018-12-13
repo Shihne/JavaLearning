@@ -24,14 +24,15 @@ public class Fractals extends Application {
         ImageView imageView = new ImageView();
         WritableImage wi = new WritableImage(400, 400);
         PixelWriter pw = wi.getPixelWriter();
-        Fractal cf = new CircleFractal();
+        //Fractal cf = new CircleFractal();
+        Fractal mf = new MandelbrotFractal();
         Palette bawp = new BlackAndWhitePalette();
         int x0 = -200;
         int y0 = 200;
         double dx = 0.01;
         for (int x1 = 0; x1 < 400; x1++)
             for (int y1 = 0; y1 < 400; y1++) {
-                pw.setColor(x1, y1, bawp.getColor(cf.getColor((x0 + x1) * dx, (y0 - y1) * dx)));
+                pw.setColor(x1, y1, bawp.getColor(mf.getColor((x0 + x1) * dx, (y0 - y1) * dx)));
             }
 
 
