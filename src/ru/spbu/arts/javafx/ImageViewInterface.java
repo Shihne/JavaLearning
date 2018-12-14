@@ -72,13 +72,14 @@ public class ImageViewInterface extends Application {
         HBox.setHgrow(textField, Priority.ALWAYS);
 
         listView.setCellFactory(
-                (lv) -> new ListCell<>() {
+                (lv) -> new ListCell<File>() {
                     @Override
                     protected void updateItem(File item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (empty)
+                        if (empty) {
                             setText("");
-                        else {
+                            setGraphic(null);
+                        } else {
 //                            URL picURL = ImageViewInterface.class.getResource(item.toString());
 //                            System.out.println("url: " + picURL);
                             ImageView iv = new ImageView(new Image(item.toURI().toString()));
