@@ -15,15 +15,15 @@ import javafx.stage.Stage;
 
 public class Fractals extends Application {
 
-    double dx = 0.01;
-    int width = 400;
-    double x0 = width * dx * (-0.5);
-    int height = 400;
-    double y0 = height * dx * 0.5;
-    Pane pane = new Pane();
-    ImageView imageView = new ImageView();
-    Fractal mf = new MandelbrotFractal();
-    Palette bwgp = new BlackWhiteGradientPalette();
+    private double dx = 0.01;
+    private int width = 400;
+    private double x0 = width * dx * (-0.5);
+    private int height = 400;
+    private double y0 = height * dx * 0.5;
+    private Pane pane = new Pane();
+    private ImageView imageView = new ImageView();
+    private Fractal mf = new MandelbrotFractal();
+    private Palette bwgp = new BlackWhiteGradientPalette();
 
     @Override
     public void start(Stage primaryStage) {
@@ -44,11 +44,11 @@ public class Fractals extends Application {
                 else if (s.equals(KeyCode.A)) {
                     dx = dx / 1.1;
                     x0 += (pane.getWidth() * dx0 - pane.getWidth() * dx) / 2;
-                    y0 += (pane.getHeight() * dx0 - pane.getHeight() * dx) / 2;
+                    y0 -= (pane.getHeight() * dx0 - pane.getHeight() * dx) / 2;
                 } else if (s.equals(KeyCode.D)) {
                     dx = dx * 1.1;
                     x0 -= (pane.getWidth() * dx - pane.getWidth() * dx0) / 2;
-                    y0 -= (pane.getHeight() * dx - pane.getHeight() * dx0) / 2;
+                    y0 += (pane.getHeight() * dx - pane.getHeight() * dx0) / 2;
                 }
                 setFractal();
             }
