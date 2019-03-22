@@ -1,4 +1,4 @@
-package ru.spbu.arts.semester.iv.patterns;
+package ru.spbu.arts.patterns.Singleton;
 
 import java.awt.*;
 import java.io.File;

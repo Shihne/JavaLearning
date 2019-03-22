@@ -1,4 +1,4 @@
-package ru.spbu.arts.semester.iv.patterns;
+package ru.spbu.arts.patterns.Singleton;
 
 public class SettingsLazy {
     //пример ленивого синглетона

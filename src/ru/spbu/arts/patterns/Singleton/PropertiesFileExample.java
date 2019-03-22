@@ -1,4 +1,4 @@
-package ru.spbu.arts.semester.iv.patterns;
+package ru.spbu.arts.patterns.Singleton;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

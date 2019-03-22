@@ -1,4 +1,4 @@
-package ru.spbu.arts.semester.iv.patterns;
+package ru.spbu.arts.patterns.Singleton;
 
 import javafx.scene.paint.Color;
 

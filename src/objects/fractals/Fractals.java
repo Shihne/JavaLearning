@@ -1,6 +1,7 @@
 package objects.fractals;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,7 +11,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Fractals extends Application {
@@ -50,31 +50,41 @@ public class Fractals extends Application {
                     x0 -= (pane.getWidth() * dx - pane.getWidth() * dx0) / 2;
                     y0 += (pane.getHeight() * dx - pane.getHeight() * dx0) / 2;
                 }
-                setFractal();
+                updateFractal();
             }
+
         });
         Parent root = initInterface();
         primaryStage.setScene(new Scene(root));
         initInteraction();
         primaryStage.show();
+
     }
 
     private Parent initInterface() {
         //Fractal cf = new CircleFractal();
         //Palette bawp = new BlackAndWhitePalette();
-        setFractal();
+        updateFractal();
         pane.getChildren().addAll(imageView);
         return pane;
     }
 
-    private void setFractal() {
-        WritableImage wi = new WritableImage(width, height);
-        PixelWriter pw = wi.getPixelWriter();
-        for (int x1 = 0; x1 < width; x1++)
-            for (int y1 = 0; y1 < height; y1++) {
-                pw.setColor(x1, y1, bwgp.getColor(mf.getColor(x0 + x1 * dx, y0 - y1 * dx)));
+    private void updateFractal() {
+        Task<WritableImage> task = new Task<WritableImage>() {
+            @Override
+            protected WritableImage call() throws Exception {
+                WritableImage wi = new WritableImage(width, height);
+                PixelWriter pw = wi.getPixelWriter();
+                for (int x1 = 0; x1 < width; x1++)
+                    for (int y1 = 0; y1 < height; y1++) {
+                        pw.setColor(x1, y1, bwgp.getColor(mf.getColor(x0 + x1 * dx, y0 - y1 * dx)));
+                    }
+                return wi;
             }
-        imageView.setImage(wi);
+        };
+
+
+        //imageView.setImage(wi);
     }
 
     private void initInteraction() {
@@ -82,14 +92,14 @@ public class Fractals extends Application {
                 prop -> {
                     width = (int) pane.getWidth();
                     x0 = width * dx * (-0.5);
-                    setFractal();
+                    updateFractal();
                 }
         );
         pane.heightProperty().addListener(
                 prop -> {
                     height = (int) pane.getHeight();
                     y0 = height * dx * 0.5;
-                    setFractal();
+                    updateFractal();
                 }
         );
 
