@@ -15,7 +15,7 @@ public class Student4 {
     public static final double PI = 3.14;
     //static final поле часто делают публичным, это "константы"
 
-    private  String name;
+    private String name;
     private int course;
     private final boolean b;
 
@@ -28,7 +28,7 @@ public class Student4 {
         b = true; //значение final поля можно задать сразу или в конструкторе.
     }
 
-    public  String getName() {
+    public String getName() {
         return name;
     }
 

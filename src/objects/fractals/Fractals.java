@@ -2,7 +2,6 @@ package objects.fractals;
 
 import javafx.application.Application;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -28,31 +27,27 @@ public class Fractals extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Фрактал");
-        primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                KeyCode s = event.getCode();
-                double dx0 = dx;
-                if (s.equals(KeyCode.LEFT))
-                    x0 -= pane.getWidth() / 10 * dx;
-                else if (s.equals(KeyCode.RIGHT))
-                    x0 += pane.getWidth() / 10 * dx;
-                else if (s.equals(KeyCode.UP))
-                    y0 += pane.getHeight() / 10 * dx;
-                else if (s.equals(KeyCode.DOWN))
-                    y0 -= pane.getHeight() / 10 * dx;
-                else if (s.equals(KeyCode.A)) {
-                    dx = dx / 1.1;
-                    x0 += (pane.getWidth() * dx0 - pane.getWidth() * dx) / 2;
-                    y0 -= (pane.getHeight() * dx0 - pane.getHeight() * dx) / 2;
-                } else if (s.equals(KeyCode.D)) {
-                    dx = dx * 1.1;
-                    x0 -= (pane.getWidth() * dx - pane.getWidth() * dx0) / 2;
-                    y0 += (pane.getHeight() * dx - pane.getHeight() * dx0) / 2;
-                }
-                updateFractal();
+        primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            KeyCode s = event.getCode();
+            double dx0 = dx;
+            if (s.equals(KeyCode.LEFT))
+                x0 -= pane.getWidth() / 10 * dx;
+            else if (s.equals(KeyCode.RIGHT))
+                x0 += pane.getWidth() / 10 * dx;
+            else if (s.equals(KeyCode.UP))
+                y0 += pane.getHeight() / 10 * dx;
+            else if (s.equals(KeyCode.DOWN))
+                y0 -= pane.getHeight() / 10 * dx;
+            else if (s.equals(KeyCode.A)) {
+                dx = dx / 1.1;
+                x0 += (pane.getWidth() * dx0 - pane.getWidth() * dx) / 2;
+                y0 -= (pane.getHeight() * dx0 - pane.getHeight() * dx) / 2;
+            } else if (s.equals(KeyCode.D)) {
+                dx = dx * 1.1;
+                x0 -= (pane.getWidth() * dx - pane.getWidth() * dx0) / 2;
+                y0 += (pane.getHeight() * dx - pane.getHeight() * dx0) / 2;
             }
-
+            updateFractal();
         });
         Parent root = initInterface();
         primaryStage.setScene(new Scene(root));
@@ -72,7 +67,7 @@ public class Fractals extends Application {
     private void updateFractal() {
         Task<WritableImage> task = new Task<WritableImage>() {
             @Override
-            protected WritableImage call() throws Exception {
+            protected WritableImage call() {
                 WritableImage wi = new WritableImage(width, height);
                 PixelWriter pw = wi.getPixelWriter();
                 for (int x1 = 0; x1 < width; x1++)
@@ -82,7 +77,9 @@ public class Fractals extends Application {
                 return wi;
             }
         };
-
+        new Thread(task).start();
+        task.valueProperty().addListener(e ->
+        imageView.setImage(task.getValue()));
 
         //imageView.setImage(wi);
     }
