@@ -5,16 +5,17 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class SVG {
-    private String picture;
-    private int width;
-    private int height;
+public class SVG implements AutoCloseable{
+
+    @Override
+    public void close() {
+        out.println("</svg>");
+        out.close();
+    }
+
     private PrintStream out;
 
     public SVG(String picture, int height, int width) throws FileNotFoundException, UnsupportedEncodingException {
-        this.picture = picture;
-        this.width = width;
-        this.height = height;
         out = new PrintStream(picture, "UTF-8");
         out.println("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + width + "\" height=\"" + height + "\">");
     }
@@ -29,21 +30,4 @@ public class SVG {
         out.println("   " + s.toString());
     }
 
-    public void close() {
-        out.println("</svg>");
-        out.close();
-    }
-
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
 }
