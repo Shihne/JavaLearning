@@ -5,7 +5,7 @@ import java.io.UnsupportedEncodingException;
 
 public class SVGDrawing {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-        SVG svg = new SVG("a.svg", 300, 300);
+        SVG svg = new SVG("b.svg", 300, 300);
 
         Tag rect1 = new Tag("rect");
         rect1.set("x", "200");
@@ -15,5 +15,6 @@ public class SVGDrawing {
         rect1.set("style", "stroke: #ff0000; fill: #0000ff");
 
         svg.addTag(rect1);
+        svg.close();
     }
 }
