@@ -1,4 +1,4 @@
-package objects.fractals;
+/*package objects.fractals;
 
 import javafx.application.Application;
 import javafx.concurrent.Task;
@@ -102,3 +102,4 @@ public class Fractals extends Application {
 
     }
 }
+*/

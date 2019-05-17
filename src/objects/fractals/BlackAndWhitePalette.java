@@ -1,4 +1,4 @@
-package objects.fractals;
+/*package objects.fractals;
 
 import javafx.scene.paint.Color;
 
@@ -11,4 +11,4 @@ public class BlackAndWhitePalette implements Palette {
         else
             return Color.WHITE;
     }
-}
+}*/

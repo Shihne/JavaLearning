@@ -1,4 +1,4 @@
-package ru.spbu.arts.semester.iv.tests;
+package ru.spbu.arts.tests;
 
 public class Palindrome {
 
