@@ -3,7 +3,7 @@ package ru.spbu.arts.svg;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
+import java.util.Map;
 
 public class SVG implements AutoCloseable{
 
@@ -22,11 +22,19 @@ public class SVG implements AutoCloseable{
 
     public void addTag(Tag tag) {
         StringBuilder s = new StringBuilder();
-        s.append("<").append(tag.getName()).append(" ");
-        List<String> content = tag.getContent();
-        for (String parameter : content)
-            s.append(parameter);
-        s.append("/>");
+        TagType type = tag.getType();
+        if (type != TagType.CLOSE) {
+            s.append("<").append(tag.getName()).append(" ");
+            Map<String, String> attributes = tag.getAttributes();
+            attributes.forEach((key, value) ->
+                    s.append(key).append(value)
+            );
+            if (type != TagType.OPEN)
+                s.append("/>");
+            else
+                s.append(">");
+        } else
+            s.append("</").append(tag.getName()).append(">");
         out.println("   " + s.toString());
     }
 

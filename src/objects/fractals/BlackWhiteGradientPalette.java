@@ -1,4 +1,4 @@
-package objects.fractals;
+/*package objects.fractals;
 
 import javafx.scene.paint.Color;
 
@@ -7,4 +7,4 @@ public class BlackWhiteGradientPalette implements Palette {
     public Color getColor(double ind) {
         return Color.gray(ind);
     }
-}
+}*/
