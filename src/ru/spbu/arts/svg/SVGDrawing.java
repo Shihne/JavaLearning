@@ -21,7 +21,7 @@ public class SVGDrawing {
         Tag gClose = new Tag("g", TagType.CLOSE);
 
         try (
-            SVG svg = new SVG("c.svg", 300, 300)) {
+            SVG svg = new SVG("c.svg")) {
             svg.addTag(rect1);
             svg.addTag(rect2);
             svg.addTag(g);
