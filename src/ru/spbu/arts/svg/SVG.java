@@ -14,10 +14,10 @@ public class SVG implements AutoCloseable{
     }
 
     private PrintStream out;
-    private Settings settings = Settings.getInstance();
 
     public SVG(String picture) throws FileNotFoundException, UnsupportedEncodingException {
         out = new PrintStream(picture, "UTF-8");
+        Settings settings = Settings.getInstance();
         out.println("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + settings.getWidth() + "\" height=\"" + settings.getHeight() + "\">");
         out.println("<rect x=\"0\" y=\"0\" width=\"" + settings.getWidth() + "\" height=\"" + settings.getHeight() + "\" style=\"fill: " + settings.getBackground() + "\" />");
     }
