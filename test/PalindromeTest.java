@@ -1,6 +1,7 @@
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.spbu.arts.semester.iv.tests.Palindrome;
+import ru.spbu.arts.tests.Palindrome;
+
 import static org.testng.Assert.*;
 
 public class PalindromeTest {
