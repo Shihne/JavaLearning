@@ -1,5 +1,5 @@
 package ru.spbu.arts.patterns.Singleton;
-
+/*
 import javafx.scene.paint.Color;
 
 public class Settings {
@@ -28,3 +28,4 @@ public class Settings {
     }
 
 }
+*/

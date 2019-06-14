@@ -1,3 +1,4 @@
+/*
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.spbu.arts.tests.Palindrome;
@@ -39,3 +40,4 @@ public class PalindromeTest {
         );
     }
 }
+*/

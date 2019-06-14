@@ -1,5 +1,5 @@
 package ru.spbu.arts.javafx;
-
+/*
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,7 +41,7 @@ import java.nio.charset.StandardCharsets;
  *  project structure -> artifacts -> create JAR from modules ->
  *  выбираем модуль и мэин класс
  */
-
+/*
 public class ResourcesExamples extends Application {
 
     private ImageView picture;
@@ -122,3 +122,4 @@ public class ResourcesExamples extends Application {
         new Image(picURL.toExternalForm());
     }
 }
+*/

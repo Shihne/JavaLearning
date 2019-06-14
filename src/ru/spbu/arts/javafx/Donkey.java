@@ -1,5 +1,5 @@
 package ru.spbu.arts.javafx;
-
+/*
 import javafx.application.Application;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
@@ -147,3 +147,4 @@ public class Donkey extends Application {
         }
     }
 }
+*/

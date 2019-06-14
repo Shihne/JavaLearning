@@ -1,5 +1,5 @@
 package ru.spbu.arts.javafx;
-
+/*
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -113,4 +113,4 @@ public class JavaFXCollectionsAndListViewerExamples extends Application {
       Отдельно программируем, как выглядит интерфейс
       Отдельно - как ведет себя
      */
-}
+//}

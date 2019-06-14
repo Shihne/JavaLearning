@@ -1,5 +1,5 @@
 package ru.spbu.arts.javafx;
-
+/*
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -198,4 +198,4 @@ public class PropertiesListenersAndBindings extends Application {
         //разных свойств соответсвовали друг другу.
     }
 
-}
+}*/

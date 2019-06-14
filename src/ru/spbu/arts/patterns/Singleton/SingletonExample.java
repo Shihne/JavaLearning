@@ -1,5 +1,5 @@
 package ru.spbu.arts.patterns.Singleton;
-
+/*
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -46,3 +46,4 @@ public class SingletonExample {
     }
 
 }
+*/

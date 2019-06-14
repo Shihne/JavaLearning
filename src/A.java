@@ -1,4 +1,4 @@
-import javafx.scene.shape.Circle;
+/*import javafx.scene.shape.Circle;
 
 public class A {
 
@@ -6,4 +6,4 @@ public class A {
         Circle c = new Circle();
     }
 
-}
+}*/

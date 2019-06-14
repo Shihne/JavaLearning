@@ -1,5 +1,5 @@
 package ru.spbu.arts.javafx;
-
+/*
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -76,3 +76,4 @@ public class GridPaneExample extends Application {
         return root;
     }
 }
+*/

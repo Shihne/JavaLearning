@@ -1,4 +1,4 @@
-package ru.spbu.arts.javafx;
+/*package ru.spbu.arts.javafx;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -50,4 +50,4 @@ public class AppChat extends Application {
 
         return root;
     }
-}
+}*/

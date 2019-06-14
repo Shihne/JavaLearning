@@ -1,5 +1,5 @@
 package ru.spbu.arts.javafx;
-
+/*
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,7 +20,7 @@ public class AppExample extends Application {
     Реализуем метод start, который объясняет, как запускается приложение. В качестве аргумента в этот метод передаётся
     Stage - ссылка на окно приложения. У окна есть заголовок, кнопки закрытия окна, бордюр для изменения размеров окна
     и т.д.
-     */
+     *//*
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Hello World JavaFX Application");
@@ -28,7 +28,7 @@ public class AppExample extends Application {
         Parent root = initInterface();
         //Задаем сцену,сцена содержит информацию о Parent, т.е. том, что показывать на экране. И инфромацию о том, как
         //показывать. Это размер окна и другие параметры
-        primaryStage.setScene(new Scene(root/*, width, height*/));
+        primaryStage.setScene(new Scene(root/*, width, height*/  /*));
 
         //отобразить окно на экране
         primaryStage.show();
@@ -71,3 +71,4 @@ public class AppExample extends Application {
         return root;
     }
 }
+*/

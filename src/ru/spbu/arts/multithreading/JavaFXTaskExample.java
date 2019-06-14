@@ -1,5 +1,5 @@
 package ru.spbu.arts.multithreading;
-
+/*
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;

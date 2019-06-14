@@ -1,5 +1,5 @@
 package ru.spbu.arts.javafx;
-
+/*
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -81,7 +81,7 @@ public class CreateCircle extends Application {
 
         circle.setCenterX(panel.getWidth() / 2);
         circle.setCenterY(panel.getHeight() / 2);*/
-
+/*
         circle.centerYProperty().bind(
                 Bindings.divide(pane.heightProperty(), 2)
         );
@@ -101,3 +101,4 @@ public class CreateCircle extends Application {
         );
     }
 }
+*/

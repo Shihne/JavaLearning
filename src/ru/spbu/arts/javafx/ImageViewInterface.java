@@ -1,5 +1,5 @@
 package ru.spbu.arts.javafx;
-
+/*
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -157,7 +157,7 @@ public class ImageViewInterface extends Application {
                         },
                         rightPane.widthProperty()
                 )*/
-        );
+/*        );
         imageView.fitHeightProperty().bind(
                 rightPane.heightProperty()
         );
@@ -168,3 +168,4 @@ public class ImageViewInterface extends Application {
         directoryChooser.setInitialDirectory(new File("src/ru/spbu/arts/javafx/images/"));
     }
 }
+*/
